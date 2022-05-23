@@ -15,8 +15,7 @@ pipeline {
         stage('Build') { 
             steps { 
                 script{
-                    sh 'ls -halr'
-                    dockerImage = docker.build('ngix-test', '-f /nginx/Dockerfile nginx')
+                    dockerImage = docker.build('ngix-test')
                 }
             }
         }
