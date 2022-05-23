@@ -14,9 +14,10 @@ pipeline {
 
         stage('Build') { 
             steps { 
-                 dir('/nginx/')
+                 dir('/nginx/'){
                 script{
-                 app = docker.build("ngnix-test")
+                    dockerImage = docker.build("ngnix-test")
+                   }
                 }
             }
         }
