@@ -15,7 +15,7 @@ pipeline {
         stage('Build') { 
             steps { 
                 script{
-                    dockerImage = docker.build("ngnix-test", "-f /nginx/Dockerfile .")
+                    dockerImage = docker.build('ngix-test', '-f /nginx/Dockerfile nginx')
                 }
             }
         }
