@@ -6,11 +6,11 @@ podTemplate(label: 'mypod', containers: [
   ]
   ) {
     node('mypod') {
-        stage('Build nginx docker image') {
             container('docker') {
+             stages {
+              stage('build nginx docker ')
                     dir('/nginx_config/') {
-                nginx = docker.build("nginx/test", "-f nginx_config/Dockerfile . ")
-               }
+                nginx = docker.build("nginx/test")
             }
         }        
     }
