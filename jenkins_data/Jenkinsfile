@@ -1,3 +1,8 @@
+environment {
+     imagename   = "nginx/test"
+     dockerImage = ''
+}
+
 podTemplate(label: 'mypod', containers: [
     containerTemplate(name: 'docker', image: 'docker', command: 'cat', ttyEnabled: true)
   ],
@@ -6,10 +11,12 @@ podTemplate(label: 'mypod', containers: [
   ]
   ) {
     node('mypod') {
-                 container('docker') {
+          container('docker') {
                    stage('build nginx docker ') {
                       dir('/nginx_config/') {
                         steps {
+                          sh "ls -halr"
+                          script {
                           nginx = docker.build("nginx/test")
                   }
                }
