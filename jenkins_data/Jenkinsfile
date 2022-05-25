@@ -14,14 +14,11 @@ podTemplate(label: 'mypod', containers: [
           container('docker') {
                    stage('build nginx docker ') {
                       dir('/nginx_config/') {
-                        steps {
                           sh "ls -halr"
                           script {
                           nginx = docker.build("nginx/test")
-                     }
-                  }
-               }
             }
-        }        
-    }
+         }
+      }        
+   }
 }
