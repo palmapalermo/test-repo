@@ -4,6 +4,7 @@
    }
 
 podTemplate(label: 'mypod', containers: [
+    containerTemplate(name: 'git', image: 'alpine/git', ttyEnabled: true, command: 'cat'),
     containerTemplate(name: 'docker', image: 'docker', command: 'cat', ttyEnabled: true)
   ],
   volumes: [
@@ -11,16 +12,18 @@ podTemplate(label: 'mypod', containers: [
   ]
   ) {
     node('mypod') {
-          container('docker') {
-                   stage('clone image repo') {
-                      git clone "https://github.com/palmapalermo/test-repo.git"
-                      sh "ls -halr"
-                   }
-                   stage('build nginx docker') {
-                          sh "ls -halr"
-                          
-                          script {
-                          nginx = docker.build("nginx/test")
+        stage('Clone repository') {
+            container('git') {
+                sh 'whoami'
+                sh 'hostname -i'
+                sh 'git clone -b master https://github.com/palmapalermo/test-repo.git'
+            }
+        }
+
+         stage('build nginx docker') {
+             container('docker') {
+                dir('test-repo/') {
+                    sh  "docker build -t nginx/test ."
             }
          }
       }        
