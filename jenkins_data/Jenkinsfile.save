@@ -1,8 +1,4 @@
    environment {
-     AWS_ACCOUNT_ID = "044506238491"
-     AWS_DEFAULT_REGION = "us-east-1"
-     REGISTRY_CREDS = "my.aws.credentials"
-     REGISTRY_URL = "public.ecr.aws/r4h2f3a9/palmapalermo/nginx"
      IMAGE_NAME  = "nginx/test"
      dockerImage = ''
    }
@@ -17,6 +13,7 @@ podTemplate(label: 'mypod', containers: [
   ]
   ) {
     node('mypod') {
+       withCredentials([string(credentialsId: 'ecrlogin', variable: 'USERPASS')])
         stage('Clone repository') {
             container('git') {
                 sh 'whoami'
