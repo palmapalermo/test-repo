@@ -29,15 +29,14 @@ podTemplate(label: 'mypod', containers: [
              container('docker') {
                 dir('test-repo/') {
                     sh  "docker build -t ${IMAGE_NAME}:${env.BUILD.ID} ."
+              }
             }
          }
 
-        stage('push nginx docker image to ecr')
+        stage('push nginx docker image to ecr') {
             container('ecr') {
                 sh "aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
-
-
-
+        }
       }        
    }
 }
