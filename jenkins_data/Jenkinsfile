@@ -36,9 +36,9 @@ podTemplate(label: 'mypod', containers: [
 
         stage('push nginx docker image to ecr') {
             container('ecr') {
-                echo "AWS_DEFAULT_REGION = ${env.AWS_ACCOUNT_ID}"
-                echo "AWS_ACCOUNT_ID = ${env.AWS_ACCOUNT_ID}"
-                sh "aws ecr get-login-password --region ${env.AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${env.AWS_ACCOUNT_ID}.dkr.ecr.${env.AWS_DEFAULT_REGION}.amazonaws.com"
+                echo "AWS_DEFAULT_REGION = us-east-1"
+                echo "AWS_ACCOUNT_ID = 044506238491"
+                sh "aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
         }
       }        
    }
