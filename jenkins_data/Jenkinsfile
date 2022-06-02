@@ -28,7 +28,7 @@ podTemplate(label: 'mypod', containers: [
          stage('build nginx docker') {
              container('docker') {
                 dir('test-repo/') {
-                    sh  "docker build -t ${IMAGE_NAME}:${env.BUILD.ID} ."
+                    sh  "docker build -t ${env.IMAGE_NAME}:${env.BUILD.ID} ."
               }
             }
          }
