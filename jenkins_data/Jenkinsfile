@@ -1,12 +1,3 @@
-   environment {
-     AWS_ACCOUNT_ID = "044506238491"
-     AWS_DEFAULT_REGION = "us-east-1"
-     REGISTRY_CREDS = "my.aws.credentials"
-     REGISTRY_URL = "public.ecr.aws/r4h2f3a9/palmapalermo/nginx"
-     IMAGE_NAME = "nginx/test"
-     dockerImage = ''
-   }
-
 podTemplate(label: 'mypod', containers: [
     containerTemplate(name: 'git', image: 'alpine/git', ttyEnabled: true, command: 'cat'),
     containerTemplate(name: 'docker', image: 'docker', command: 'cat', ttyEnabled: true),
@@ -45,6 +36,8 @@ podTemplate(label: 'mypod', containers: [
 
         stage('push nginx docker image to ecr') {
             container('ecr') {
+                echo "AWS_DEFAULT_REGION = ${env.AWS_ACCOUNT_ID}"
+                echo "AWS_ACCOUNT_ID = ${env.AWS_ACCOUNT_ID}"
                 sh "aws ecr get-login-password --region ${env.AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${env.AWS_ACCOUNT_ID}.dkr.ecr.${env.AWS_DEFAULT_REGION}.amazonaws.com"
         }
       }        
