@@ -43,7 +43,8 @@ podTemplate(label: 'mypod', containers: [
                 env.AWS_ACCOUNT_ID = "044506238491"
                 sh "aws configure set aws_access_key_id "$AWS_ACCESS_KEY_ID" --profile user2 && aws configure set --profile user2 && aws_secret_access_key "$AWS_ACCESS_KEY_SECRET" --profile user2 && aws configure set region "${AWS_DEFAULT_REGION}" --profile user2 && aws configure set output "text" --profile user2"
                 sh "aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
-        }
+            }
+         }
       }        
    }
 }
